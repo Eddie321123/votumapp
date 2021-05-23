@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "245593485845",
+    "project_id": "thebruh-b412b",
+    "storage_bucket": "thebruh-b412b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245593485845:android:433f724d458c646431541c",
+        "android_client_info": {
+          "package_name": "com.example.myfuckation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245593485845-brachv2uehrjqllhok24e4mbp0orgol4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myfuckation",
+            "certificate_hash": "78ad4da667dca08a4500a7e2390b052878e94aee"
+          }
+        },
+        {
+          "client_id": "245593485845-e2eqnuddfd93khch5s84gl5hrisd627e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOOolVFeaZwc7ob8bUumGv-H4oC3ds4q8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245593485845-e2eqnuddfd93khch5s84gl5hrisd627e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
