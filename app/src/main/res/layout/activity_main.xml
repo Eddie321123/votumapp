@@ -12,16 +12,18 @@
         android:layout_width="365dp"
         android:layout_height="725dp"
         android:layout_marginBottom="207dp"
+        android:contentDescription="@string/fcm_fallback_notification_channel_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/rectangle_1" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/menu_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="122dp"
+        android:contentDescription="@string/common_google_play_services_notification_channel_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +32,8 @@
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="46dp"
-        android:layout_height="43dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
