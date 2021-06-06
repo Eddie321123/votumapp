@@ -1,4 +1,4 @@
-package com.example.myfuckation;
+package com.votum.app;
 
 import android.app.Service;
 import android.content.Intent;
