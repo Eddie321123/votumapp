@@ -10,7 +10,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
+import android.nfc.Tag;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,6 +20,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -27,16 +32,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
      */
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(final RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         // TODO(developer): Handle FCM messages here.
         // If the application is in the foreground handle both data and notification messages here.
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-        RemoteMessage.Notification notification = remoteMessage.getNotification();
+        final RemoteMessage.Notification notification = remoteMessage.getNotification();
         Map<String, String> data = remoteMessage.getData();
 
         sendNotification(notification, data);
+        Log.d("Data", "data:" + data);
     }
 
     /**
@@ -46,7 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param data FCM data payload received.
      */
     private void sendNotification(RemoteMessage.Notification notification, Map<String, String> data) {
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_votum);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_votum_v2);
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -64,6 +70,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setLights(Color.RED, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.ic_votum_v2);
+        BroadcastNotification(notification);
 
         try {
             String picture_url = data.get("picture_url");
@@ -96,5 +103,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    public void BroadcastNotification(RemoteMessage.Notification notification) {
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM HH:mm");
+        String time = DateFor.format(date);
+
+        String title = notification.getTitle();
+        String body = notification.getBody();
+        Intent myIntent = new Intent("Cloud Message");
+        myIntent.putExtra("msg", body);
+        myIntent.putExtra("title", title);
+        myIntent.putExtra("time", time);
+        this.sendBroadcast(myIntent);
     }
 }
