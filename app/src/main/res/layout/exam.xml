@@ -11,13 +11,15 @@
             android:id="@+id/Today_Date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/Today_Subjects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#FFFFFF" />
     </TableRow>
 
     <TableRow
@@ -28,15 +30,15 @@
             android:id="@+id/Tomorrow_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:="@+id/Tomorrow_Date"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/Tomorrow_subjects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:="@+id/Tomorrow_Date"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#FFFFFF" />
     </TableRow>
 
 </TableLayout>

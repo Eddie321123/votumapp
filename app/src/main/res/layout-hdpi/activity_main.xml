@@ -7,6 +7,8 @@
     android:background="@color/bg"
     tools:context=".MainActivity">
 
+
+
     <ImageView
         android:id="@+id/menu_bar"
         android:layout_width="0sp"
@@ -36,7 +38,7 @@
         android:textStyle="normal"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/menu_bar"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/task_bar"
         app:layout_constraintTop_toTopOf="@+id/menu_bar" />
 
     <ImageView
@@ -49,12 +51,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/votum_logo_v5_2__no_ng_" />
 
-    <ImageView
-        android:id="@+id/imageView6"
+    <Button
+        android:id="@+id/task_bar"
         android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_height="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:background="@drawable/task_bar"
         app:layout_constraintBottom_toBottomOf="@+id/menu_bar"
         app:layout_constraintStart_toStartOf="@+id/menu_bar"
         app:layout_constraintTop_toTopOf="@+id/menu_bar"
@@ -104,6 +107,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/notifications_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -187,8 +191,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/exam_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/Container_2"
@@ -224,16 +230,34 @@
                     app:srcCompat="@drawable/notifications" />
 
                 <include
+                    layout="@layout/exam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:adjustViewBounds="true"
-                    app:layout="@layout/exam"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/Container_2"
                     app:layout_constraintHorizontal_bias="0.09"
                     app:layout_constraintStart_toStartOf="@id/Container_2"
                     app:layout_constraintTop_toBottomOf="@id/exam_title"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Spinner
+                    android:id="@+id/form_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="250dp"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@drawable/form_selector"
+                    android:gravity="start"
+                    android:textAlignment="gravity"
+                    app:layout_constraintBottom_toBottomOf="@+id/exam_title"
+                    app:layout_constraintEnd_toEndOf="@+id/Container_2"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/exam_title"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.constraintlayout.widget.Guideline

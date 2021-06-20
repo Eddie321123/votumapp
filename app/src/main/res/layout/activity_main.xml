@@ -36,7 +36,7 @@
         android:textStyle="normal"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/menu_bar"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/task_bar"
         app:layout_constraintTop_toTopOf="@+id/menu_bar" />
 
     <ImageView
@@ -50,7 +50,7 @@
         app:srcCompat="@drawable/votum_logo_v5_2__no_ng_" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/task_bar"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
