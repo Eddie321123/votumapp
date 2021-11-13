@@ -1,82 +1,139 @@
 package com.votum.app;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.BroadcastReceiver;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.text.style.UpdateAppearance;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.lang.reflect.Array;
+import java.time.temporal.ValueRange;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private DrawerLayout drawer;
     private static final String TAG = "MainActivity";
 
     //vars
     private ArrayList<String> mInformation = new ArrayList<>();
     private ArrayList<String> mTime = new ArrayList<>();
     private ArrayList<String> mTitle = new ArrayList<>();
-    //Day
-    private String Day;
+
+    //UI
+    //final Button dayButton = findViewById(R.id.Day);
+
+    //Database
+    DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("myapp", "MainActivity start");
 
-        //UI
-        final Button dayButton = findViewById(R.id.Day);
-        Spinner form_selector = findViewById(R.id.form_selector);
+        //Navigation Manager
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        //Form Selector
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Form, R.layout.form_selector);
-        adapter.setDropDownViewResource(R.layout.form_selector);
-        form_selector.setAdapter(adapter);
-        //form_selector.getOnItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
+        if (savedInstanceState == null) {
+            Log.d("LOl", "no saved instance");
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container,
+                            new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.home);
+        }
 
-        //Show Day by Firebase
-        DatabaseReference Dayref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://thebruh-b412b-default-rtdb.firebaseio.com/12G8BlfCZXw5zqSYBt91vTvpW9yK27Ks_0xTnan7gCxg/Day");
-        Dayref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String finalDay = dataSnapshot.child("1").child("Today").getValue().toString();
-                Log.d("Firebase Database", finalDay);
-                dayButton.setText(finalDay);
+        //Firebase Token
+        String newToken = FirebaseMessaging.getInstance().getToken().toString();
+        Log.d("Firebase", newToken);
 
-            }
+        //Load Database
+        DB = new DBHelper(this);
+        Cursor res = DB.getdata();
+        while (res.moveToNext()) {
+            mTime.add(res.getString(0));
+            mInformation.add(res.getString(1));
+            mTitle.add(res.getString(2));
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
+
+    //Navigation Menu
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,
+                        new HomeFragment()).commit();
+                break;
+
+            case R.id.welfare:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,
+                                new WelfareFragment()).commit();
+                break;
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Log.d("myapp", "BackPressed");
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    //MIGRATED FROM HOMEACTIVITY **START**
 
     //Notifications processor
     public void initNotifications(String message, String time, String title) {
@@ -97,12 +154,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //receiver from MyFirebaseMessagingService
     public BroadcastReceiver myReceiver = new BroadcastReceiver() {
+
         @Override
         public void onReceive(Context context, Intent intent) {
             String msg = intent.getStringExtra("msg");
             String time = intent.getStringExtra("time");
             String title = intent.getStringExtra("title");
             initNotifications(msg, time, title);
+            UpdateDatabase(msg, time, title);
+        }
+
+        private void UpdateDatabase(String msg, String time, String title) {
+            DB = new DBHelper(MainActivity.this);
+            DB.insertuserdata(msg, time, title);
+
         }
     };
 
@@ -119,23 +184,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         unregisterReceiver(myReceiver);
     }
 
-    //Spinner
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String form = parent.getItemAtPosition(position).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    class MyFailureListener implements OnFailureListener {
-        @Override
-        public void onFailure(@NonNull Exception exception) {
-            int errorCode = ((DatabaseException) exception.getMessage();
-            String errorMessage = exception.getMessage();
-            // test the errorCode and errorMessage, and handle accordingly
-        }
-    }
+    //MIGRATED FROM HOMEACTIVITY **END**
 }

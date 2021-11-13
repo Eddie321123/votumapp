@@ -46,7 +46,7 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Notifi
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView information;
         TextView time;
         TextView title;

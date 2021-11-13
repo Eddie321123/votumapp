@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
-import android.nfc.Tag;
 import android.os.Build;
 import android.util.Log;
 
@@ -20,7 +19,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -42,7 +40,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
 
         sendNotification(notification, data);
-        Log.d("Data", "data:" + data);
     }
 
     /**
@@ -117,5 +114,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         myIntent.putExtra("title", title);
         myIntent.putExtra("time", time);
         this.sendBroadcast(myIntent);
+    }
+
+    @Override
+    public void onNewToken(String token) {
+        Log.d("Firebase", "Refreshed token: " + token);
     }
 }

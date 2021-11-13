@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".HomeFragment">
+
+    <ImageView
+        android:id="@+id/menu_bar"
+        android:layout_width="0sp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/common_google_play_services_notification_channel_name"
+        android:cropToPadding="true"
+        android:scaleType="matrix"
+        app:layout_constraintBottom_toTopOf="@id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rectangle_2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:fontFamily="@font/votum_font_original"
+        android:gravity="start|center_vertical"
+        android:text="CSWCSS SU"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/menu_bar"
+        app:layout_constraintStart_toEndOf="@+id/task_bar"
+        app:layout_constraintTop_toTopOf="@+id/menu_bar" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@id/guideline6"
+        app:layout_constraintEnd_toEndOf="@+id/menu_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/votum_logo_v5_2__no_ng_" />
+
+    <ImageView
+        android:id="@+id/task_bar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/menu_bar"
+        app:layout_constraintStart_toStartOf="@+id/menu_bar"
+        app:layout_constraintTop_toTopOf="@+id/menu_bar"
+        app:srcCompat="@drawable/task_bar" />
+
+    <Button
+        android:id="@+id/Day"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/votum_font_original"
+        android:gravity="right|center_vertical"
+        android:singleLine="true"
+        android:text="Day 1"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/menu_bar"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/menu_bar" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_bar"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/Container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@id/guideline2"
+                    app:srcCompat="@drawable/rectangle_1" />
+
+                <TextView
+                    android:id="@+id/notification_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17sp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="250dp"
+                    android:layout_marginRight="250dp"
+                    android:adjustViewBounds="true"
+                    android:fontFamily="@font/votum_font_original"
+                    android:scaleType="fitStart"
+                    android:text="Notifications"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/Container"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toStartOf="@+id/Container"
+                    app:layout_constraintTop_toTopOf="@+id/Container"
+                    app:layout_constraintVertical_bias="0.006"
+                    app:srcCompat="@drawable/notifications" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="9dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/notification_title"
+                    app:layout_constraintTop_toTopOf="@+id/Container"
+                    app:layout_constraintVertical_bias="0.006"
+                    app:srcCompat="@drawable/outline_notifications_white_48" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notificationRecyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32sp"
+                    android:layout_marginBottom="32sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/Container"
+                    app:layout_constraintEnd_toEndOf="@id/Container"
+                    app:layout_constraintStart_toStartOf="@id/notification_title"
+                    app:layout_constraintTop_toBottomOf="@id/notification_title"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:itemCount="5" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
